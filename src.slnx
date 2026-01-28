@@ -1,14 +1,16 @@
 <Solution>
     <Folder Name="/API/">
-        <Project Path="API/ddd.API/ddd.API.csproj"/>
+        <Project Path="API/ddd.API/ddd.API.csproj" />
     </Folder>
     <Folder Name="/BuildingBlocks/">
-        <Project Path="BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj"/>
-        <Project Path="BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj"/>
-        <Project Path="BuildingBlocks/BuildingBlocks.Infrastructure/BuildingBlocks.Infrastructure.csproj"/>
+        <Project Path="BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj" />
+        <Project Path="BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj" />
+        <Project Path="BuildingBlocks/BuildingBlocks.Infrastructure/BuildingBlocks.Infrastructure.csproj" />
     </Folder>
-    <Folder Name="/Modules/"/>
+    <Folder Name="/Modules/" />
     <Folder Name="/Modules/Item/">
-        <Project Path="Modules/Item/Item.Application/Item.Application.csproj"/>
+        <Project Path="Modules/Item/Item.Application/Item.Application.csproj" />
+        <Project Path="Modules/Item/Item.Domain/Item.Domain.csproj" />
+        <Project Path="Modules/Item/Item.Infrastructure/Item.Infrastructure.csproj" />
     </Folder>
 </Solution>

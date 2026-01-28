@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\API\ddd.API\ddd.API.csproj"/>
         <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Application\BuildingBlocks.Application.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks.Infrastructure\BuildingBlocks.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Item.Application\Item.Application.csproj" />
+        <ProjectReference Include="..\Item.Domain\Item.Domain.csproj"/>
     </ItemGroup>
 
 </Project>
