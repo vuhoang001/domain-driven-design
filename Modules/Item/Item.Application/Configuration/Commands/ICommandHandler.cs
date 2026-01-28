@@ -1,0 +1,1 @@
+namespace Item.Application.Configuration.Commands;

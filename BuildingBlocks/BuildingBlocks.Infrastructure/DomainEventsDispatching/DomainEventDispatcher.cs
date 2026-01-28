@@ -1,8 +1,8 @@
 using Autofac;
 using BuildingBlocks.Application.Events;
 using BuildingBlocks.Application.Outbox;
-using BuildingBlocks.Application.Serialization;
 using BuildingBlocks.Domain;
+using BuildingBlocks.Infrastructure.Serialization;
 using MediatR;
 using Newtonsoft.Json;
 

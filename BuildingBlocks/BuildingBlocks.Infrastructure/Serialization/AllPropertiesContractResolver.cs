@@ -2,7 +2,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace BuildingBlocks.Application.Serialization;
+namespace BuildingBlocks.Infrastructure.Serialization;
 
 public class AllPropertiesContractResolver : DefaultContractResolver
 {
