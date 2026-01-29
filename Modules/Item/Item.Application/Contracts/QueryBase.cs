@@ -1,3 +1,5 @@
+using Item.Application.Contracts;
+
 namespace Item.Application.Configuration.Contracts;
 
 public class QueryBase<TResult> : IQuery<TResult>

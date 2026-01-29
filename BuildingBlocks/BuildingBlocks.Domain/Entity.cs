@@ -2,7 +2,7 @@ namespace BuildingBlocks.Domain;
 
 public abstract class Entity
 {
-    private List<IDomainEvent> _domainEvents;
+    private List<IDomainEvent> _domainEvents = [];
 
     /// <summary>
     /// Các sự kiện miền đã xảy ra.  

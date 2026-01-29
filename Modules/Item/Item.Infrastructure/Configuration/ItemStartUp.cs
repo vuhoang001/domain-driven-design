@@ -4,6 +4,7 @@ using BuildingBlocks.Infrastructure.Email;
 using BuildingBlocks.Infrastructure.EventBus;
 using Item.Infrastructure.Configuration.DataAccess;
 using Item.Infrastructure.Configuration.Logging;
+using Item.Infrastructure.Configuration.Mediation;
 using Item.Infrastructure.Configuration.Processing;
 using Serilog;
 using Serilog.Extensions.Logging;
@@ -22,6 +23,10 @@ public class ItemStartUp
         IEventBus? eventBus,
         long? internalProcessingPoolingInterval = null)
     {
+        var moduleLogger = logger.ForContext("Module", "Administration");
+
+        ConfigurationCompositionRoot(connectionString, executionContextAccessor, moduleLogger, emailConfiguration,
+                                     eventBus);
     }
 
     private static void ConfigurationCompositionRoot(
@@ -29,7 +34,7 @@ public class ItemStartUp
         IExecutionContextAccessor executionContextAccessor,
         ILogger logger,
         EmailConfiguration emailConfiguration,
-        IEventBus eventBus
+        IEventBus? eventBus
     )
     {
         var containerBuilder = new ContainerBuilder();
@@ -38,6 +43,7 @@ public class ItemStartUp
         var loggerFactory = new SerilogLoggerFactory(logger);
         containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
         containerBuilder.RegisterModule(new ProcessingModule());
+        containerBuilder.RegisterModule(new MediatorModule());
 
         var container = containerBuilder.Build();
         ItemCompositionRoot.SetContainer(container);

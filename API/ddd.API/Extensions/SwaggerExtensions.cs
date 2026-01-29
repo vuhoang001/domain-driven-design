@@ -4,7 +4,7 @@ namespace ddd.API.Extensions;
 
 internal static class SwaggerExtensions
 {
-    internal static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
+    internal static void AddSwaggerDocumentation(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
         {
@@ -47,14 +47,11 @@ internal static class SwaggerExtensions
                 }
             });
         });
-
-        return services;
     }
 
-    internal static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
+    internal static void UseSwaggerDocumentation(this IApplicationBuilder app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v0/swagger.json", "MyMeetings API V0"); });
-        return app;
     }
 }

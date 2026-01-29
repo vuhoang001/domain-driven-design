@@ -1,44 +1,35 @@
 using Item.Application.Configuration.Commands;
+using Item.Application.Item;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ddd.API.Modules.Item;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ItemController : ControllerBase
+public class ItemController(IItemModule itemModule, ILogger<ItemController> logger) : ControllerBase
 {
-    private readonly IItemModule _itemModule;
-    private readonly ILogger<ItemController> _logger;
-
-    public ItemController(IItemModule itemModule, ILogger<ItemController> logger)
-    {
-        _itemModule = itemModule;
-        _logger = logger;
-    }
+    private readonly IItemModule _itemModule = itemModule;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        _logger.LogInformation("Getting all items");
-        // TODO: Implement GetAllItemsQuery
+        logger.LogInformation("Getting all items");
         return Ok(new { message = "Item module is working!" });
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        _logger.LogInformation("Getting item with id: {Id}", id);
+        logger.LogInformation("Getting item with id: {Id}", id);
         // TODO: Implement GetItemByIdQuery
         return Ok(new { id, message = "Item found!" });
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateItemRequest request)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Create([FromBody] CreateItemDto request)
     {
-        _logger.LogInformation("Creating new item: {@Request}", request);
-        // TODO: Implement CreateItemCommand
+        await itemModule.ExecuteCommandAsync(new CreateItemCommand(request.ItemName, request.ItemDesc, request.Price));
         return CreatedAtAction(nameof(GetById), new { id = Guid.NewGuid() }, new { message = "Item created!" });
     }
 }
-
-public record CreateItemRequest(string Name, string Description);

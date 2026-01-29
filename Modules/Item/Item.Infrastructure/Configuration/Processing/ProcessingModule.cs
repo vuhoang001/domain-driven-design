@@ -1,5 +1,5 @@
-using System.Reflection;
 using Autofac;
+using BuildingBlocks.Application.Events;
 using BuildingBlocks.Infrastructure;
 using BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using Item.Application.Configuration.Commands;
@@ -40,6 +40,9 @@ public class ProcessingModule : Autofac.Module
             typeof(ICommandHandler<,>)
         );
 
-        // builder.RegisterAssemblyModules(Assembly.Application)
+        builder.RegisterAssemblyTypes(Assemblies.Application)
+            .AsClosedTypesOf(typeof(IDomainEventNotification<>))
+            .InstancePerDependency()
+            .FindConstructorsWith(new AllConstructorFinder());
     }
 }
