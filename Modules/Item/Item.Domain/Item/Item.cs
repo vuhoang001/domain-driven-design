@@ -9,6 +9,12 @@ public class Item : Entity, IAggregateRoot
     public string? ItemDesc { get; private set; }
     public decimal Price { get; private set; }
 
+    private Item()
+    {
+        Id       = new ItemId(Guid.NewGuid());
+        ItemName = "";
+    }
+
     protected Item(ItemId id, string itemName, string? itemDesc, decimal price)
     {
         Id       = id;

@@ -7,7 +7,6 @@ using Item.Application.Configuration.Commands;
 using Item.Application.Configuration.Queries;
 using MediatR;
 using MediatR.Pipeline;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Item.Infrastructure.Configuration.Mediation;
 
@@ -50,6 +49,23 @@ public class MediatorModule : Module
 
         builder.RegisterGeneric(typeof(RequestPostProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
         builder.RegisterGeneric(typeof(RequestPreProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
+
+        // Đăng ký decorators SAU khi handlers đã được đăng ký
+        builder.RegisterGenericDecorator(
+            typeof(UnitOfWorkCommandHandlerDecorator<>),
+            typeof(ICommandHandler<>));
+
+        builder.RegisterGenericDecorator(
+            typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
+            typeof(ICommandHandler<,>));
+
+        builder.RegisterGenericDecorator(
+            typeof(ValidationCommandHandlerDecorator<>),
+            typeof(ICommandHandler<>));
+
+        builder.RegisterGenericDecorator(
+            typeof(ValidationCommandHandlerWithResultDecorator<,>),
+            typeof(ICommandHandler<,>));
     }
 
     private class ScopedContravariantRegistrationSource : IRegistrationSource

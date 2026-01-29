@@ -1,32 +1,43 @@
 using BuildingBlocks.Infrastructure;
 using Item.Application.Configuration.Commands;
-using Item.Application.Configuration.Contracts;
 using Item.Application.Contracts;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Item.Infrastructure.Configuration;
 
 internal class UnitOfWorkCommandHandlerDecorator<T>(
-    ICommandHandler<T> decorator,
+    IRequestHandler<T> decorated,
     IUnitOfWork unitOfWork,
     ItemContext itemContext) : ICommandHandler<T> where T : ICommand
 {
     public async Task Handle(T request, CancellationToken cancellationToken)
     {
-        await decorator.Handle(request, cancellationToken);
-
-        if (request is InternalCommandBase)
+        try
         {
-            var internalCommand =
-                await itemContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == request.Id,
-                                                                       cancellationToken: cancellationToken);
+            Console.WriteLine($"🟢 DECORATOR START (No Result): {typeof(T).Name}");
+            
+            await decorated.Handle(request, cancellationToken);
 
-            if (internalCommand is not null)
+            if (request is InternalCommandBase)
             {
-                internalCommand.ProcessedDate = DateTime.UtcNow;
-            }
-        }
+                var internalCommand =
+                    await itemContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == request.Id,
+                                                                           cancellationToken: cancellationToken);
 
-        await unitOfWork.CommitAsync(cancellationToken);
+                if (internalCommand is not null)
+                {
+                    internalCommand.ProcessedDate = DateTime.UtcNow;
+                }
+            }
+
+            await unitOfWork.CommitAsync(cancellationToken);
+            Console.WriteLine($"✅ DECORATOR END (No Result): {typeof(T).Name} - Committed");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ DECORATOR ERROR (No Result): {typeof(T).Name} - {ex.Message}");
+            throw;
+        }
     }
 }

@@ -9,19 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace Item.Infrastructure.Configuration.DataAccess;
 
-public class DataAccessModule(string connnectionString, ILoggerFactory loggerFactory) : Module
+public class DataAccessModule(string connectionString, ILoggerFactory loggerFactory) : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<SqlConnectionFactory>()
             .As<ISqlConnectionFactory>()
-            .WithParameter("connectionString", connnectionString)
+            .WithParameter("connectionString", connectionString)
             .InstancePerLifetimeScope();
 
         builder.Register(c =>
             {
                 var dbContextOptions = new DbContextOptionsBuilder<ItemContext>();
-                dbContextOptions.UseSqlServer(connnectionString);
+                dbContextOptions.UseSqlServer(connectionString);
 
                 dbContextOptions.ReplaceService<IValueConverterSelector, StronglyTypeIdValueConverterSelector>();
                 return new ItemContext(dbContextOptions.Options, loggerFactory);

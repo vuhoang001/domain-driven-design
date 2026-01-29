@@ -1,6 +1,4 @@
-using Item.Application.Contracts;
-
-namespace Item.Application.Configuration.Contracts;
+namespace Item.Application.Contracts;
 
 public class CommandBase<TResult> : ICommand<TResult>
 {

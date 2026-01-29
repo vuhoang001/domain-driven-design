@@ -1,6 +1,5 @@
 using BuildingBlocks.Infrastructure;
 using Item.Application.Configuration.Commands;
-using Item.Application.Configuration.Contracts;
 using Item.Application.Contracts;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +13,7 @@ internal class UnitOfWorkCommandHandlerWithResultDecorator<T, TResult>(
 {
     public async Task<TResult> Handle(T request, CancellationToken cancellationToken)
     {
+        Console.WriteLine($"🔵 DECORATOR START: {typeof(T).Name}");
         var result = await decorator.Handle(request, cancellationToken);
 
         if (request is InternalCommandBase<TResult>)

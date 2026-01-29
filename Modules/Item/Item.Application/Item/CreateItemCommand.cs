@@ -1,4 +1,5 @@
 using Item.Application.Configuration.Contracts;
+using Item.Application.Contracts;
 using Newtonsoft.Json;
 
 namespace Item.Application.Item;
