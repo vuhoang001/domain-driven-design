@@ -19,7 +19,7 @@ public class ItemStartUp
         IExecutionContextAccessor executionContextAccessor,
         ILogger logger,
         EmailConfiguration emailConfiguration,
-        IEventBus eventBus,
+        IEventBus? eventBus,
         long? internalProcessingPoolingInterval = null)
     {
     }
@@ -38,5 +38,8 @@ public class ItemStartUp
         var loggerFactory = new SerilogLoggerFactory(logger);
         containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
         containerBuilder.RegisterModule(new ProcessingModule());
+
+        var container = containerBuilder.Build();
+        ItemCompositionRoot.SetContainer(container);
     }
 }
