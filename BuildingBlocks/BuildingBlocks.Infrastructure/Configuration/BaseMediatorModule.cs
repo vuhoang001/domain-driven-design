@@ -40,12 +40,10 @@ public class BaseMediatorModule : Module
             .InstancePerDependency()
             .IfNotRegistered(typeof(IServiceProvider));
 
-        // Register MediatR core services
         builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
             .AsImplementedInterfaces()
             .InstancePerLifetimeScope();
 
-        // Define open generic types
         var mediatorOpenTypes = new[]
         {
             typeof(IRequestHandler<,>),
@@ -59,10 +57,8 @@ public class BaseMediatorModule : Module
             typeof(IRequestExceptionAction<,>),
         };
 
-        // Register Scoped Contravariant Registration Source
         builder.RegisterSource(new ScopedContravariantRegistrationSource(mediatorOpenTypes));
 
-        // Register handlers from specified assemblies
         if (_assembliesToScan.Any())
         {
             foreach (var mediatorOpenType in mediatorOpenTypes)
@@ -75,7 +71,6 @@ public class BaseMediatorModule : Module
             }
         }
 
-        // Register pipeline behaviors
         builder.RegisterGeneric(typeof(RequestPostProcessorBehavior<,>))
             .As(typeof(IPipelineBehavior<,>));
 

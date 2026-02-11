@@ -27,11 +27,11 @@ public class BaseProcessingModule : Module
     {
         builder.RegisterGenericDecorator(
             typeof(UnitOfWorkCommandHandlerDecorator<>),
-            typeof(IRequestHandler<>));
+            typeof(ICommandHandler<>));
 
         builder.RegisterGenericDecorator(
             typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
-            typeof(IRequestHandler<,>));
+            typeof(ICommandHandler<,>));
 
         builder.RegisterGenericDecorator(
             typeof(ValidationCommandHandlerDecorator<>),
@@ -55,7 +55,6 @@ public class BaseProcessingModule : Module
     // Template methods - module implement riêng
     protected virtual void RegisterModuleSpecificServices(ContainerBuilder builder)
     {
-        throw new NotImplementedException();
     }
 
     protected virtual void RegisterAdditionalDecorators(ContainerBuilder builder)

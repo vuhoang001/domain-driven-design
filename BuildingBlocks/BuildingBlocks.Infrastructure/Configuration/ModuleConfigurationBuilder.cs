@@ -80,7 +80,7 @@ public class ModuleConfigurationBuilder(
     }
 
     // Cho phép module register thêm
-    public ModuleConfigurationBuilder RegisterCustomModule(Autofac.Module module)
+    public ModuleConfigurationBuilder RegisterCustomModule(Module module)
     {
         _containerBuilder.RegisterModule(module);
         return this;

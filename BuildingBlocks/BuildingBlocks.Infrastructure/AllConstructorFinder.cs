@@ -4,7 +4,7 @@ using Autofac.Core.Activators.Reflection;
 
 namespace BuildingBlocks.Infrastructure
 {
-    internal class AllConstructorFinder : IConstructorFinder
+    public class AllConstructorFinder : IConstructorFinder
     {
         private static readonly ConcurrentDictionary<Type, ConstructorInfo[]> Cache =
             new ConcurrentDictionary<Type, ConstructorInfo[]>();
