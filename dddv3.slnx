@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="API/ddd.API/ddd.API.csproj" />
+  </Folder>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj" />
+    <Project Path="BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj" />
+    <Project Path="BuildingBlocks/BuildingBlocks.Infrastructure/BuildingBlocks.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/MasterData/">
+    <Project Path="Modules/MasterData/MasterData.Application/MasterData.Application.csproj" />
+    <Project Path="Modules/MasterData/MasterData.Domain/MasterData.Domain.csproj" />
+    <Project Path="Modules/MasterData/MasterData.Infrastructure/MasterData.Infrastructure.csproj" />
+  </Folder>
+</Solution>
