@@ -6,7 +6,7 @@ using MediatR;
 
 namespace BuildingBlocks.Infrastructure.Configuration;
 
-public class BaseProcessingModule : Module
+public class BaseProcessingModule(bool enableOutbox) : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
@@ -48,6 +48,8 @@ public class BaseProcessingModule : Module
         builder.RegisterGenericDecorator(
             typeof(LoggingCommandHandlerWithResultDecorator<,>),
             typeof(IRequestHandler<,>));
+
+        builder.RegisterDecorator<OutboxDomainEventsDispatcherDecorator, IDomainEventsDispatcher>();
 
         RegisterAdditionalDecorators(builder);
     }
