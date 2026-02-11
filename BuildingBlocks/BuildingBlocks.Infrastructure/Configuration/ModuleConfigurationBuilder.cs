@@ -14,9 +14,9 @@ public class ModuleConfigurationBuilder(
 {
     private readonly ContainerBuilder          _containerBuilder         = new();
     private          string                    _connectionString         = connectionString;
-    private          ILogger                   _logger                   = logger;
+    private          ILogger?                  _logger                   = logger;
     private          IExecutionContextAccessor _executionContextAccessor = executionContextAccessor;
-    private          IEventsBus                _eventsBus                = eventsBus;
+    private          IEventsBus?               _eventsBus                = eventsBus;
     private          bool                      _enableQuartz             = true;
     private          bool                      _enableOutbox             = true;
 
@@ -69,12 +69,11 @@ public class ModuleConfigurationBuilder(
             _containerBuilder.RegisterModule(new BaseDataAccessModule(_connectionString, loggerFactory));
         }
 
-        if (_eventsBus != null)
-        {
-            _containerBuilder.RegisterModule(new BaseEventsBusModule(_eventsBus));
-        }
+        // if (_eventsBus != null)
+        // {
+        //     _containerBuilder.RegisterModule(new BaseEventsBusModule(_eventsBus));
+        // }
 
-        _containerBuilder.RegisterModule(new DefaultProcessingModule());
         _containerBuilder.RegisterModule(new BaseMediatorModule());
 
         return this;

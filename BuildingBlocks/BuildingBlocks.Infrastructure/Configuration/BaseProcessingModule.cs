@@ -6,16 +6,7 @@ using MediatR;
 
 namespace BuildingBlocks.Infrastructure.Configuration;
 
-public class DefaultProcessingModule :
-    BaseProcessingModule
-{
-    protected override void RegisterModuleSpecificServices(ContainerBuilder builder)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public abstract class BaseProcessingModule : Module
+public class BaseProcessingModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
@@ -62,7 +53,10 @@ public abstract class BaseProcessingModule : Module
     }
 
     // Template methods - module implement riêng
-    protected abstract void RegisterModuleSpecificServices(ContainerBuilder builder);
+    protected virtual void RegisterModuleSpecificServices(ContainerBuilder builder)
+    {
+        throw new NotImplementedException();
+    }
 
     protected virtual void RegisterAdditionalDecorators(ContainerBuilder builder)
     {
